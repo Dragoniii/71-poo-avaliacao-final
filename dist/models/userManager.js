@@ -1,0 +1,29 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.UserManager = void 0;
+const user_1 = require("./user");
+class UserManager {
+    constructor() {
+        this.users = [];
+    }
+    createUser(name, email, username, password) {
+        if (this.isUsernameUnique(username)) {
+            const user = new user_1.User(name, email, username, password);
+            this.users.push(user);
+            return user;
+        }
+        else {
+            console.log(`Username "${username}" is already taken.`);
+            return null;
+        }
+    }
+    isUsernameUnique(username) {
+        return !this.users.some(user => user.username === username);
+    }
+    displayAllUsers() {
+        this.users.forEach(user => {
+            user.displayUserDetails();
+        });
+    }
+}
+exports.UserManager = UserManager;
